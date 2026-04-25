@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     let logoUrl = ''
     if (logo && logo.size > 0) {
       const blob = await put(`vendors/${Date.now()}-${logo.name}`, logo, {
-        access: 'private',
+        access: 'public',
       })
       logoUrl = blob.url
     }
