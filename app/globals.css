@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #7C3AED;
+  --color-accent: #F59E0B;
+  --color-bg: #0F0A1E;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  min-height: 100dvh;
+  background: var(--color-bg);
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Animated gradient blob background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 10%, color-mix(in srgb, var(--color-primary) 25%, transparent) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 80%, color-mix(in srgb, var(--color-accent) 15%, transparent) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card-glass {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+input, textarea, select {
+  outline: none;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  transition: opacity 0.15s, transform 0.1s;
+}
+.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0); }
+
+.progress-bar {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.35s ease both; }
+
+@keyframes checkPop {
+  0%   { transform: scale(0); opacity: 0; }
+  70%  { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.check-pop { animation: checkPop 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
