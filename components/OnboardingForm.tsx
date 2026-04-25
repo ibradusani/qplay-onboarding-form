@@ -426,6 +426,7 @@ export default function OnboardingForm() {
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [serverError, setServerError] = useState('')
+  const [confirmed, setConfirmed] = useState(false)
 
   const set = useCallback((key: string, value: unknown) => {
     setData(prev => ({ ...prev, [key]: value }))
@@ -529,6 +530,20 @@ export default function OnboardingForm() {
             </h2>
 
             {stepComponents[step]}
+            
+            {step === STEPS.length - 1 && (
+  <label className="flex items-start gap-3 mt-6 cursor-pointer">
+    <input
+      type="checkbox"
+      checked={confirmed}
+      onChange={e => setConfirmed(e.target.checked)}
+      className="mt-0.5 accent-violet-500 w-4 h-4 shrink-0"
+    />
+    <span className="text-white/50 text-xs leading-relaxed">
+      I confirm that the information provided is accurate and I agree to be contacted by QPLAY.
+    </span>
+  </label>
+)}
 
             {serverError && (
               <p className="mt-4 text-sm text-red-400 bg-red-400/10 rounded-xl px-4 py-3">{serverError}</p>
@@ -557,7 +572,7 @@ export default function OnboardingForm() {
                 <button
                   type="button"
                   onClick={submit}
-                  disabled={submitting}
+                  disabled={submitting || !confirmed}
                   className="btn-primary flex-1 py-3 rounded-xl text-white text-sm font-semibold disabled:opacity-50"
                 >
                   {submitting ? 'Submitting…' : 'Submit ✨'}
